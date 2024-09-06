@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+
+    <title>Daily Purchase Entry</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background-color: #080710;
+        color: aliceblue;
+      }
+      .w-fit {
+        width: fit-content;
+      }
+      .tableParent {
+        overflow: auto;
+        height: calc(100vh - 200px);
+      }
+      .table {
+        background-color: rgba(255, 255, 255, 0.13);
+      }
+      thead {
+        position: sticky;
+        top: 0;
+      }
+      th {
+        white-space: nowrap;
+      }
+      .inputTd {
+        min-width: 100px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container position-relative">
+      <header class="p-2 bg-inherit sticky-top">
+        <div class="d-flex flex-row align-items-center justify-content-between">
+          <h3>Daily Purchase Entry</h3>
+          <div>
+            <a href="{% url 'home' %}" class="btn btn-secondary mr-3">Main Menu</a>
+            <a href="{% url 'logout' %}" class="btn btn-secondary">Log Out</a>
+          </div>
+        </div>
+        <div class="form-group d-flex flex-row align-items-center justify-content-start">
+          <input
+            type="date"
+            class="form-control w-fit mr-3"
+            id="date"
+            name="date"
+          />
+          <!-- UPDATE BUTTON -->
+          <button type="button" class="btn btn-secondary" onclick="notifyUpdate()">View and Update</button>
+        </div>
+      </header>
+      <main>
+        <!-- TABLE -->
+        <form action="{% url 'DailyPurchase' %}" method="POST">
+          {% csrf_token %}
+          <div class="tableParent position-relative table-responsive">
+            <table class="table">
+              <thead class="thead-light">
+                <tr>
+                  <th>Item Type</th>
+                  <th>Item Name</th>
+                  <th>Unit</th>
+                  <th>Qty</th>
+                  <th>Unit Price</th>
+                  <th>Tax</th>
+                  <th>Total Price</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Example row, repeat as needed -->
+                <tr>
+                  <td>Daily Nonveg</td>
+                  <td>Chicken</td>
+                  <td>Kg</td>
+                  <td class="inputTd">
+                    <input type="number" class="form-control" name="quantity[]" />
+                  </td>
+                  <td class="inputTd">
+                    <input type="number" class="form-control" name="unit_price[]" />
+                  </td>
+                  <td class="inputTd">
+                    <input type="number" class="form-control" name="tax[]" />
+                  </td>
+                  <td class="inputTd">
+                    <input type="number" class="form-control" name="total_price[]" />
+                  </td>
+                </tr>
+                <!-- Repeat similar <tr> elements for other rows -->
+              </tbody>
+            </table>
+          </div>
+          <div class="ml-1 mt-3">
+            <button type="submit" class="btn btn-secondary">Save</button>
+            <button type="submit" class="btn btn-secondary ml-3">Submit</button>
+          </div>
+        </form>
+      </main>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      function notifySave() {
+        alert("Your data has been saved.");
+      }
+
+      function notifySubmit() {
+        alert("Your data has been submitted.");
+      }
+
+      function notifyUpdate() {
+        alert("Viewing and updating data.");
+      }
+    </script>
+  </body>
+</html>
